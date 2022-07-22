@@ -40,14 +40,13 @@ export default function About({  items, preview ,id}) {
   
 export async function getStaticProps({ params, preview = false, previewData }) {
     const data = await getAllItemsForHome(params, preview, previewData)
-    const data2 = await getAllItemsWithSlug()
-    console.log(data)
+    // const data2 = await getAllItemsWithSlug()
     return {
       props: {
         preview,
         // item: data.item,
         items: data,
-        id: data2,
+        // id: data2,
       },
       revalidate: 10,
     }

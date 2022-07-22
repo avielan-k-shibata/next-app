@@ -29,3 +29,11 @@ img {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.aa{
+  font-size: 140%;
+  transition: 1.2s;
+}
+.aa.inview{
+  font-size: 180%;
+}
