@@ -5,6 +5,8 @@ import Script from 'next/script';
 import Layout from "../components/templates/layout"
 import { getAllItemsForHome, getAllItemsWithSlug } from "../lib/api"
 
+import {IO} from "../components/atoms/IO"
+
 import { Item } from "../pages/types/items"
 
 export default function About({ items, preview, id }) {
@@ -21,7 +23,7 @@ export default function About({ items, preview, id }) {
                     console.log(`script loaded correctly, window.FB has been populated`)
                 }
             />
-            <h1>First Post</h1>
+            <IO as="span" c_name="aaa">321</IO>
             <h2>
                 <Link href="/">
                     <a>Back to home</a>

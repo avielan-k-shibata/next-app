@@ -17,8 +17,7 @@ export default function Layout({ children} :Props) {
         <div className="flex flex-wrap">
             <Header />
             <LeftMenu />
-            <div className="md:w-[calc(100%_-_240px)] w-full">{children}</div>
-
+            <div className="md:w-[calc(100%_-_312px)] w-full min-h-screen">{children}</div>
 
             <Footer />
 

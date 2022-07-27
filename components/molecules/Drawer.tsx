@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import {Menu} from "../molecules/Menu"
 
 type Props = {
     children?: ReactNode;
@@ -18,6 +19,7 @@ export const Drawer = ({ children} :Props) => {
                     <li><a>Sidebar Item 2</a></li>
 
                 </ul>
+                <Menu />
             </div>
         </div>
     )
