@@ -19,7 +19,7 @@ export const Drawer = ({ children} :Props) => {
                     <li><a>Sidebar Item 2</a></li>
 
                 </ul>
-                <Menu />
+                {/* <Menu /> */}
             </div>
         </div>
     )

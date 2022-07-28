@@ -27,7 +27,7 @@ const Home: NextPage = ({ items }: any) => {
           <a>about</a>
         </Link>
       </div>
-      {console.log(items)}
+      {/* {console.log(items)} */}
       <h1 className="text-6xl font-bold">
         Welcome to{' '}
         <a className="text-blue-600" href="https://nextjs.org">
@@ -37,9 +37,9 @@ const Home: NextPage = ({ items }: any) => {
       <div className="flex flex-wrap">
         {items.data.map((item:Item)=>{
           return(
-            <>
+
             <div key={item.id}>{item.attributes.name}</div>
-            </>
+
           )
         })}
         <div>01</div>
