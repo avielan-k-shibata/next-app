@@ -27,7 +27,6 @@ const Home: NextPage = ({ items }: any) => {
           <a>about</a>
         </Link>
       </div>
-      {/* {console.log(items)} */}
       <h1 className="text-6xl font-bold">
         Welcome to{' '}
         <a className="text-blue-600" href="https://nextjs.org">
@@ -35,7 +34,7 @@ const Home: NextPage = ({ items }: any) => {
         </a>
       </h1>
       <div className="flex flex-wrap">
-        {items.data.map((item:Item)=>{
+      {items.data.map((item:Item)=>{
           return(
 
             <div key={item.id}>{item.attributes.name}</div>
@@ -52,7 +51,7 @@ const Home: NextPage = ({ items }: any) => {
 
 Home.getInitialProps = async ctx => {
   try {
-    const res = await axios.get('http://localhost:1337/api/items', {
+    const res = await axios.get(`http://localhost:1337/api/items`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -12,7 +12,6 @@ import { Item } from "../pages/types/items"
 export default function About({ items, preview, id }) {
     return (
         <Layout>
-            {console.log(items, id)}
             <Head>
                 <title>First Post</title>
             </Head>
@@ -31,7 +30,7 @@ export default function About({ items, preview, id }) {
             </h2>
             {items.map((item: Item) => {
                 return (
-                    <p key={item.id}>{item.id}</p>
+                    <p key={item.id}>{item.id}{item.attributes.name}</p>
                 )
             })}
         </Layout>
