@@ -1,39 +1,53 @@
-import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
-    
-    const options = {
-      providers: [
-        Providers.Google({
-          clientId: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        }),
-      ],
-      database: process.env.NEXT_PUBLIC_DATABASE_URL,
-      session: {
-        jwt: true,
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { signIn } from '../../../services/auth';
+
+export default NextAuth({
+  // Configure one or more authentication providers
+  providers: [
+    CredentialsProvider({
+      name: 'Sign in with Email',
+      credentials: {
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
       },
-      callbacks: {
-        session: async (session, user) => {
-          session.jwt = user.jwt;
-          session.id = user.id;
-          return Promise.resolve(session);
-        },
-        jwt: async (token, user, account) => {
-          const isSignIn = user ? true : false;
-          if (isSignIn) {
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/auth/${account.provider}/callback?access_token=${account?.accessToken}`
-            );
-            const data = await response.json();
-            token.jwt = data.jwt;
-            token.id = data.user.id;
-          }
-          return Promise.resolve(token);
-        },
+      async authorize(credentials, req) {
+        /**
+         * This function is used to define if the user is authenticated or not.
+         * If authenticated, the function should return an object contains the user data.
+         * If not, the function should return `null`.
+         */
+        if (credentials == null) return null;
+        /**
+         * credentials is defined in the config above.
+         * We can expect it contains two properties: `email` and `password`
+         */
+        try {
+          const { user, jwt } = await signIn({
+            email: credentials.email,
+            password: credentials.password,
+          });
+          return { ...user, jwt };
+        } catch (error) {
+          // Sign In Fail
+          return null;
+        }
       },
-    };
-    
-    const Auth = (req, res) =>
-      NextAuth(req, res, options);
-    
-    export default Auth;
+    }),
+  ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      session.id = token.id;
+      session.jwt = token.jwt;
+      return Promise.resolve(session);
+    },
+    jwt: async ({ token, user }) => {
+      const isSignIn = user ? true : false;
+      if (isSignIn) {
+        token.id = user.id;
+        token.jwt = user.jwt;
+      }
+      return Promise.resolve(token);
+    },
+  },
+});
