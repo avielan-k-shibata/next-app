@@ -3,13 +3,14 @@ import Link from 'next/link';
 import Script from 'next/script';
 
 import Layout from "../components/templates/layout"
-import { getAllItemsForHome, getAllItemsWithSlug } from "../lib/api"
+import { getAllItemsForHome } from "../lib/api"
 
 import {IO} from "../components/atoms/IO"
 
 import { Item } from "../pages/types/items"
 
-export default function About({ items, preview, id }) {
+export default function About({ items, preview, id }:any) {
+    console.log(items, preview, id)
     return (
         <Layout>
             <Head>
@@ -39,6 +40,7 @@ export default function About({ items, preview, id }) {
 
 export async function getStaticProps({ params, preview = false, previewData }) {
     const data = await getAllItemsForHome(params, preview, previewData)
+    console.log(params, 232 ,previewData)
     // const data2 = await getAllItemsWithSlug()
     return {
         props: {
